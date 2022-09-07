@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Canvas</title>
+  </head>
+  <body>
+    <canvas id="draw" width="1000" height="1000"></canvas>
+    <script>
+      // 模板 先把畫布給繪製好
+      const canvas = document.querySelector("#draw");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // 測試
+      // const ctx = document.querySelector("#draw").getContext("2d");
+      // 不能這樣寫，失敗了，一定要先canvas再ctx
+
+      ctx.strokeStyle = "#BADA55";
+      ctx.lineJoin = "round";
+      ctx.lineCap = "round";
+      ctx.lineWidth = 50;
+
+      // 加上這個會變成黑色
+      // ctx.globalCompositeOperation = "multiply";
+
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+      let hue = 0;
+      let direction = true;
+
+      function draw(e) {
+        if (isDrawing) return;
+        ctx.strokeStyle = `hsl(${hue}, 100%, 100%)`;
+
+        // 開始畫的模板
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+
+        hue++;
+        if (hue >= 360) {
+          hue = 0;
+        }
+        if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+          direction = !direction;
+        }
+
+        if (direction) {
+          ctx.lineWidth++;
+        } else {
+          ctx.lineWidth--;
+        }
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+      });
+
+      // 滑鼠點擊事件
+      canvas.addEventListener("mousemove", draw);
+      canvas.addEventListener("mouseup", () => (isDrawing = false));
+      canvas.addEventListener("mouseout", () => (isDrawing = false));
+    </script>
+
+    <style>
+      canvas {
+        background-color: orange;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>
