@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Console Tricks!</title>
+  </head>
+  <body>
+    <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+    <script>
+      const dogs = [
+        { name: "Snickers", age: 2 },
+        { name: "hugo", age: 8 },
+      ];
+
+      function makeGreen() {
+        const p = document.querySelector("p");
+        p.style.color = "#BADA55";
+        p.style.fontSize = "50px";
+      }
+
+      console.log("apple", "font-size:100px");
+
+      console.log("%c APPLE", "font-size:100px; background:red; ");
+
+      console.warn("be careful");
+
+      console.error("i am error");
+
+      console.info("i can need you read this");
+
+      console.dir(apple);
+
+      dogs.foreach((dog) => {
+        console.log(`this is ${dog.name} years old`);
+      });
+
+      const apple = document.querySelector("p");
+      console.assert(apple.classList.contains("ouch"), "That is apple!");
+    </script>
+  </body>
+</html>
