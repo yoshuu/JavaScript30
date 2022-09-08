@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="item">
+        <form>
+          <input type="checkbox" />
+          <p>This is an inbox layout.</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Check one item</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Hold down your Shift key</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Check a lower item</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Everything in between should also be set to checked</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Try to do it without any libraries</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Just regular JavaScript</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Good Luck!</p>
+        </form>
+        <form>
+          <input type="checkbox" />
+          <p>Don't forget to tweet your result!</p>
+        </form>
+      </div>
+    </div>
+  </body>
+
+  <style>
+    body {
+      background-color: yellow;
+    }
+
+    .item {
+      margin-top: 3rem;
+    }
+
+    .main {
+      display: flex;
+      justify-content: center;
+      margin: auto;
+    }
+
+    form {
+      display: flex;
+      width: 25rem;
+      background-color: white;
+      border-bottom: 1px solid #f1f1f1;
+      box-shadow: 10px 10px 0 rgb(0 0 0 / 10%);
+    }
+
+    input {
+      margin: 1rem;
+    }
+
+    p {
+      padding: 1rem;
+      margin: 0;
+      border-left: 1px solid #d1e2ff;
+      vertical-align: middle;
+      font-size: 1.3rem;
+      font-weight: 200;
+    }
+
+    input:checked + p {
+      width: 100%;
+      background: #f9f9f9;
+      text-decoration: line-through;
+    }
+  </style>
+
+  <script>
+    const checkboxes = document.querySelectorAll(
+      '.main input[type="checkbox"]'
+    );
+
+    checkboxes.forEach((checkbox) =>
+      checkbox.addEventListener("click", handleCheck)
+    );
+    let inBetween = false;
+
+    function handleCheck(e) {
+      let inBetween = false;
+      if (e.shiftKey && this.checked) {
+        checkboxes.forEach((checkbox) => {
+          console.log(checkbox);
+          if (checkbox === this || checkbox === lastChecked) {
+            inBetween = !inBetween;
+          }
+          if (inBetween) {
+            checkbox.checked = true;
+          }
+        });
+      }
+
+      lastChecked = this;
+    }
+  </script>
+</html>
